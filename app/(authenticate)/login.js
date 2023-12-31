@@ -55,7 +55,7 @@ const login = () => {
                 width: 300,
                 fontSize: email ? 17 : 17,
               }}
-              placeholder="enter your Email"
+              placeholder="enter your to Email"
             />
           </View>
           <View
