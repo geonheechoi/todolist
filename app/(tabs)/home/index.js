@@ -1,9 +1,11 @@
-import React from "react";
-import { View, ScrollView, Text, Image, Pressable } from "react-native";
+import React,{useEffect,useState} from "react";
+import { View, ScrollView, Text, Image, Pressable,StyleSheet,} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 const index = () => {
   const todos = [];
+  const [isVisible,setModalVisible] = useState(false);
+
 
   return (
     <>

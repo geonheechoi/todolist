@@ -1,9 +1,13 @@
-import {Stack} from "expo-router"
-import {Tabs} from "expo-router"
-export default function Layout(){
-    return (
-        <Stack screenOptions ={{headerShown:false}}> 
-            <Tabs.Screen name="index"/>
-        </Stack>
-    )
+import { Stack } from "expo-router";
+import { Tabs } from "expo-router";
+import { ModalPortal } from "react-native-modals";
+export default function Layout() {
+  return (
+    <>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+      </Stack>
+      <ModalPortal />
+    </>
+  );
 }
