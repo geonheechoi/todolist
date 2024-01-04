@@ -124,7 +124,7 @@ const index = () => {
         visible={isModalVisible}
         onTouchOutside={() => setModalVisible(!isModalVisible)}
       >
-       <ModalContent style={{ width: "100%", height: 200 }}>
+       <ModalContent style={{ width: "100%", height: 280 }}>
           <View style={{marginVertical:10,flexDirection:"row",alignItems:"center",gap:10}}>
             <TextInput
               value={todo}
@@ -132,7 +132,25 @@ const index = () => {
               placeholder="input a new task such as killing nigga "
               style={{padding:10, borderColor:"#E0E0E0",borderWidth:1,borderRadius:5,flex:1}}
             />
+            <Feather name="send" size={24} color="black" />
           </View>
+    
+              <Text>
+                Choose category
+              </Text>
+              <View style={{flexDirection:"row",alignItems:"center",gap:10,marginVertical:10}}>
+                <Pressable style={{borderColor:"#E0E0E0",paddingHorizontal:10,paddingVertical:4,borderWidth:1,borderWidth:25}}>
+                    <Text>Work</Text>
+                </Pressable>
+                <Pressable style={{borderColor:"#E0E0E0",paddingHorizontal:10,paddingVertical:4,borderWidth:1,borderWidth:25}}>
+                    <Text>Personal </Text>
+                </Pressable>
+                <Pressable style={{borderColor:"#E0E0E0",paddingHorizontal:10,paddingVertical:4,borderWidth:1,borderWidth:25}}>
+                    <Text>wish List </Text>
+                </Pressable>
+              </View>
+              
+     
         </ModalContent>
       </BottomModal>
     </>
