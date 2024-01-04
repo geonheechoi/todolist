@@ -6,7 +6,6 @@ import {
   Text,
   TextInput,
   View,
-  ViewBase,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { AntDesign, Feather } from "@expo/vector-icons";
@@ -17,14 +16,13 @@ import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { MaterialIcons } from "@expo/vector-icons";
-
 import moment from "moment";
 import { useRouter } from "expo-router";
+
 const index = () => {
   const todos = [];
-  const [isVisible,setModalVisible] = useState(false);
-  const [toto,setTodo] = useState("");
-
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [todo, setTodo] = useState("");
 
   return (
     <>
@@ -74,7 +72,7 @@ const index = () => {
         >
           <Text style={{ color: "white", textAlign: "center" }}>Personal</Text>
         </Pressable>
-        <Pressable>
+        <Pressable onPress={()=>setModalVisible(!isModalVisible)}>
           <AntDesign name="pluscircle" size={30} color="blue" />
         </Pressable>
       </View>
@@ -97,8 +95,7 @@ const index = () => {
               <Image
                 style={{ width: 200, height: 200, resizeMode: "contain" }}
                 source={{
-                  uri:
-                    "https://cdn-icons-png.flaticon.com/128/2387/2387679.png",
+                  uri: "https://cdn-icons-png.flaticon.com/128/2387/2387679.png",
                 }}
               />
               <Text
@@ -111,17 +108,33 @@ const index = () => {
               >
                 No Tasks for today. Nigga.
               </Text>
-              <Pressable style={{marginTop:15}}>
-                <AntDesign name="pluscircle" size={30} color="blue" />
+              <Pressable style={{ marginTop: 15 }}>
+                <AntDesign onPress={()=>setModalVisible(!isModalVisible)} name="pluscircle" size={30} color="blue" />
               </Pressable>
             </View>
           )}
         </View>
       </ScrollView>
-      <BottomModal 
-        onBackdropProcess={()=> setModalVisible(!isModalVisible)}
-        onHardwarePress={()=> setModalVisible(fal
-
+      <BottomModal
+        onBackdropProcess={() => setModalVisible(!isModalVisible)}
+        onHardwarePress={() => setModalVisible(!isModalVisible)}
+        swipeThreshold={200}
+        modalTitle={<ModalTitle title="Add a todo" />}
+        modalAnimation={new SlideAnimation({ slideFrom: "bottom" })}
+        visible={isModalVisible}
+        onTouchOutside={() => setModalVisible(!isModalVisible)}
+      >
+       <ModalContent style={{ width: "100%", height: 200 }}>
+          <View style={{marginVertical:10,flexDirection:"row",alignItems:"center",gap:10}}>
+            <TextInput
+              value={todo}
+              onChangeText={(text) => setTodo(text)}
+              placeholder="input a new task such as killing nigga "
+              style={{padding:10, borderColor:"#E0E0E0",borderWidth:1,borderRadius:5,flex:1}}
+            />
+          </View>
+        </ModalContent>
+      </BottomModal>
     </>
   );
 };
