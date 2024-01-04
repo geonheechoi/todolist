@@ -1,10 +1,29 @@
-import React,{useEffect,useState} from "react";
-import { View, ScrollView, Text, Image, Pressable,StyleSheet,} from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ViewBase,
+} from "react-native";
+import React, { useState, useEffect } from "react";
+import { AntDesign, Feather } from "@expo/vector-icons";
+import { BottomModal } from "react-native-modals";
+import { ModalTitle, ModalContent } from "react-native-modals";
+import { SlideAnimation } from "react-native-modals";
+import { Entypo, FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import axios from "axios";
+import { MaterialIcons } from "@expo/vector-icons";
 
+import moment from "moment";
+import { useRouter } from "expo-router";
 const index = () => {
   const todos = [];
   const [isVisible,setModalVisible] = useState(false);
+  const [toto,setTodo] = useState("");
 
 
   return (
@@ -99,8 +118,14 @@ const index = () => {
           )}
         </View>
       </ScrollView>
+      <BottomModal 
+        onBackdropProcess={()=> setModalVisible(!isModalVisible)}
+        onHardwarePress={()=> setModalVisible(fal
+
     </>
   );
 };
 
 export default index;
+
+const styles = StyleSheet.create({});
