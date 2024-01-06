@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 mongoose
   .connect(
     "mongodb+srv://geonheechoi:geonheechoi@cluster0.ynq9tfg.mongodb.net/"
@@ -77,3 +78,29 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ message: "login error" });
   }
 });
+
+app.post("/todos/:userId", async (req, res) => {
+  try{
+    const userId=req.params.userId;
+    const{title,category}=req.body;
+    const newTodo= new Todo({
+      title, 
+      category,
+      dueDate:moment().format("YYYY-MM-DD")
+    });
+
+    await newTodo.save();
+    const user = await User.findBy(userId);
+    if(!user){
+      res.status(404).json({error:"user not found"})
+    }
+    user?.todos.push(newTodo._id);
+    await user.save();
+
+    res.status(200).json({message:"Todo added sucessfully",todo:newTodo});
+
+  }catch(error){
+    res.status(200).json({mesage:"TODO not added for nigga"})
+  }
+  
+})

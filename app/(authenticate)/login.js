@@ -38,7 +38,7 @@ const login = () => {
       email: email,
       password: password
     };
-    axios.post("http://192.168.219.102:3000/login",user).then((responce)=>{
+    axios.post("http://192.168.219.104:3000/login",user).then((responce)=>{
       const token = responce.data.token;
       console.log(token,"token");
       AsyncStorage.setItem("authToken", token);

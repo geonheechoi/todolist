@@ -18,7 +18,7 @@ const Register = () => {
       email: email,
       password: password
     }
-    axios.post("http://192.168.219.102:3000/register", user)
+    axios.post("http://192.168.219.104:3000/register", user)
       .then((responce) => {
         console.log(responce);
         Alert.alert("Registration Success", "You have been successfully registered.");

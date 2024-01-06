@@ -18,11 +18,51 @@ import axios from "axios";
 import { MaterialIcons } from "@expo/vector-icons";
 import moment from "moment";
 import { useRouter } from "expo-router";
-
+import axios  from "axios";
 const index = () => {
   const todos = [];
   const [isModalVisible, setModalVisible] = useState(false);
+  const [category,setCategory] = useState("All");
   const [todo, setTodo] = useState("");
+  const suggestions = [
+    {
+      id: "0",
+      todo: "Drink Water, keep healthy",
+    },
+    {
+      id: "1",
+      todo: "Go Excercising",
+    },
+    {
+      id: "2",
+      todo: "Go to bed early",
+    },
+    {
+      id: "3",
+      todo: "Take pill reminder",
+    },
+    {
+      id: "4",
+      todo: "Go Shopping",
+    },
+    {
+      id: "5",
+      todo: "finish assignments",
+    },
+  ];
+  const addTodo = async ()=>{
+    try{
+       const todoData={
+        title:todo,
+        category: category,
+       }
+
+    axios.post("http://192.168.219.104:3000/todos/")
+    }catch(error){
+      console.log("error",error);
+    }
+
+  }
 
   return (
     <>
@@ -72,7 +112,7 @@ const index = () => {
         >
           <Text style={{ color: "white", textAlign: "center" }}>Personal</Text>
         </Pressable>
-        <Pressable onPress={()=>setModalVisible(!isModalVisible)}>
+        <Pressable onPress={() => setModalVisible(!isModalVisible)}>
           <AntDesign name="pluscircle" size={30} color="blue" />
         </Pressable>
       </View>
@@ -109,7 +149,12 @@ const index = () => {
                 No Tasks for today. Nigga.
               </Text>
               <Pressable style={{ marginTop: 15 }}>
-                <AntDesign onPress={()=>setModalVisible(!isModalVisible)} name="pluscircle" size={30} color="blue" />
+                <AntDesign
+                  onPress={() => setModalVisible(!isModalVisible)}
+                  name="pluscircle"
+                  size={30}
+                  color="blue"
+                />
               </Pressable>
             </View>
           )}
@@ -124,33 +169,96 @@ const index = () => {
         visible={isModalVisible}
         onTouchOutside={() => setModalVisible(!isModalVisible)}
       >
-       <ModalContent style={{ width: "100%", height: 280 }}>
-          <View style={{marginVertical:10,flexDirection:"row",alignItems:"center",gap:10}}>
+        <ModalContent style={{ width: "100%", height: 280 }}>
+          <View
+            style={{
+              marginVertical: 10,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
             <TextInput
               value={todo}
               onChangeText={(text) => setTodo(text)}
               placeholder="input a new task such as killing nigga "
-              style={{padding:10, borderColor:"#E0E0E0",borderWidth:1,borderRadius:5,flex:1}}
+              style={{
+                padding: 10,
+                borderColor: "#E0E0E0",
+                borderWidth: 1,
+                borderRadius: 5,
+                flex: 1,
+              }}
             />
-            <Feather name="send" size={24} color="black" />
+            <Ionicons onPress={addTodo} name="send" size={24} color="#007FFF" />
           </View>
-    
-              <Text>
-                Choose category
-              </Text>
-              <View style={{flexDirection:"row",alignItems:"center",gap:10,marginVertical:10}}>
-                <Pressable style={{borderColor:"#E0E0E0",paddingHorizontal:10,paddingVertical:4,borderWidth:1,borderWidth:25}}>
-                    <Text>Work</Text>
-                </Pressable>
-                <Pressable style={{borderColor:"#E0E0E0",paddingHorizontal:10,paddingVertical:4,borderWidth:1,borderWidth:25}}>
-                    <Text>Personal </Text>
-                </Pressable>
-                <Pressable style={{borderColor:"#E0E0E0",paddingHorizontal:10,paddingVertical:4,borderWidth:1,borderWidth:25}}>
-                    <Text>wish List </Text>
-                </Pressable>
-              </View>
-              
-     
+
+          <Text
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
+              marginVertical: 10,
+            }}
+          >
+            Choose category
+          </Text>
+          <View
+           onPress={() =>setCategory("work")}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
+              marginVertical: 10,
+            }}
+          >
+            <Pressable
+             onPress={() =>setCategory("Work")}
+              style={{
+                borderColor: "#E0E0E0",
+                paddingHorizontal: 10,
+                paddingVertical: 4,
+                borderWidth: 1,
+                borderWidth: 2,
+              }}
+            >
+              <Text>Work</Text>
+            </Pressable>
+            <Pressable
+             onPress={() =>setCategory("person")}
+              style={{
+                borderColor: "#E0E0E0",
+                paddingHorizontal: 10,
+                paddingVertical: 4,
+                borderWidth: 1,
+                borderWidth: 2,
+              }}
+            >
+              <Text>Personal </Text>
+            </Pressable>
+            <Pressable
+             onPress={() =>setCategory("wish list")}
+              style={{
+                borderColor: "#E0E0E0",
+                paddingHorizontal: 10,
+                paddingVertical: 4,
+                borderWidth: 1,
+                borderWidth: 2,
+              }}
+            >
+              <Text>wish List </Text>
+            </Pressable>
+          </View>
+          <Text>sueegstion for nigga</Text>
+          
+          <View style ={{flexDirection:"row",alignItems:"center",gap:10,flexWrap:"wrap",marginVertical:10}}>
+            {suggestions?.map((item,index) =>(
+              <Pressable style={{backgroundColor: "#F0F8FF",paddingHorizontal:10,paddingVertical:4,borderRadius:25}}>
+                <Text style={{textAlign:"center"}}>{item?.todo}</Text>
+              </Pressable>
+            
+            ))}
+          </View>
         </ModalContent>
       </BottomModal>
     </>
